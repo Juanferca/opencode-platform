@@ -1,0 +1,20 @@
+# Dependencias generadas
+node_modules/
+
+# Credenciales y variables locales
+.env
+.env.*
+!.env.example
+server.env
+
+# Archivos temporales
+*.log
+*.tmp
+*.swp
+*~
+
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
