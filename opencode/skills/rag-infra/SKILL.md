@@ -7,7 +7,7 @@ description: Use ONLY when the user asks about the RAG backend, vector database,
 
 ## Project Location
 - Backend: `/home/juanferca/rag/`
-- Docker compose: `/home/juanferca/rag/docker-compose.yml`
+- Docker compose: `docker-compose.example.yml` (template, renombrar a `docker-compose.yml` y ajustar)
 - Dockerfile: `/home/juanferca/rag/backend/Dockerfile`
 - Workflows JSON: `/tmp/opencode/rag-n8n/` (backup)
 
