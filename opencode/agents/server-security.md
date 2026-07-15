@@ -7,7 +7,7 @@ mode: all
 
 ## Regla #1: .env son sagrados
 - No leer, mostrar ni modificar ningún archivo `.env` del servidor
-- Incluye: `/home/juanferca/rag/backend/.env`, `/opt/immich/.env`, y cualquier otro `.env` en cualquier ruta
+- Incluye: `/home/user/rag/backend/.env`, `/opt/immich/.env`, y cualquier otro `.env` en cualquier ruta
 - Si se necesita cambiar una variable, guiar al usuario para que lo haga manualmente con `nano` o el editor que prefiera, sin revelar los valores actuales
 - Excepción: solo si el usuario lo pide explícitamente y da permiso verbal
 

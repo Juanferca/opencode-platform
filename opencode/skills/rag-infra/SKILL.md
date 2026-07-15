@@ -1,14 +1,14 @@
 ---
 name: rag-infra
-description: Use ONLY when the user asks about the RAG backend, vector database, n8n webhooks, or the Node/Express API at /home/juanferca/rag/. Covers postgres-ia, rag.items, app_user, rag-backend, and the two n8n workflows for PDF ingestion and semantic search.
+description: Use ONLY when the user asks about the RAG backend, vector database, n8n webhooks, or the Node/Express API at /home/user/rag/. Covers postgres-ia, rag.items, app_user, rag-backend, and the two n8n workflows for PDF ingestion and semantic search.
 ---
 
 # RAG Infrastructure & Backend
 
 ## Project Location
-- Backend: `/home/juanferca/rag/`
+- Backend: `/home/user/rag/`
 - Docker compose: `docker-compose.example.yml` (template, renombrar a `docker-compose.yml` y ajustar)
-- Dockerfile: `/home/juanferca/rag/backend/Dockerfile`
+- Dockerfile: `/home/user/rag/backend/Dockerfile`
 - Workflows JSON: `/tmp/opencode/rag-n8n/` (backup)
 
 ## Server Architecture
@@ -35,9 +35,9 @@ Docker containers (internal network)
 - El contenedor no debe exponer `ports:` — Traefik accede por red interna Docker
 
 ## Domain & Traefik
-- Subdominio: `api.juanferca.com`
+- Subdominio: `api.example.com`
 - En Cloudflare Tunnel: apunta a `http://192.168.1.134:80` (como el resto)
-- Router Traefik: `Host(`api.juanferca.com`) && PathPrefix(`/api`)`
+- Router Traefik: `Host(`api.example.com`) && PathPrefix(`/api`)`
 - Entrypoint: `web` (puerto 80, sin TLS — Cloudflare lo maneja)
 - NO usar `entrypoints=websecure`, NO usar `tls.certresolver`
 - No se requiere registro DNS A, solo Cloudflare Tunnel
@@ -47,7 +47,7 @@ Docker containers (internal network)
 - Container: `postgres-ia`
 - Port: 5432 (internal)
 - DB: `ecosistema_ia`
-- User: `juanferca`
+- User: `postgres`
 - Password: `change-me`
 - Extension: `vector` 0.8.2 (pgvector)
 
@@ -77,7 +77,7 @@ Docker containers (internal network)
 - User: `juan@test.com` (contraseña temporal (preguntar al usuario), pendiente de cambio)
 
 ## n8n
-- URL: https://n8n.juanferca.com
+- URL: https://n8n.example.com
 - Container: `withpostgres-n8n-1`
 - Internal: http://n8n:5678
 - Version: 2.17.7
@@ -98,13 +98,13 @@ Docker containers (internal network)
 6. Respond → results array
 
 ### Required n8n Credentials
-- PostgreSQL: host=postgres-ia, db=ecosistema_ia, user=juanferca
+- PostgreSQL: host=postgres-ia, db=ecosistema_ia, user=postgres
 - OpenAI: Header Auth (Authorization: Bearer sk-...)
 
 ## Backend API (Node/Express)
 - Container: `rag-backend`
 - Internal port: 3000
-- URL pública: https://api.juanferca.com/api/
+- URL pública: https://api.example.com/api/
 - No tiene puerto expuesto en el host
 - Dockerfile base: `node:22-alpine` con `poppler-utils` instalado (para `pdftotext`)
 
@@ -140,7 +140,7 @@ Docker containers (internal network)
 PORT=3000
 PG_HOST=postgres-ia
 PG_PORT=5432
-PG_USER=juanferca
+PG_USER=postgres
 PG_PASSWORD=change-me
 PG_DB=ecosistema_ia
 OPENAI_API_KEY=sk-...
@@ -179,11 +179,11 @@ JWT_EXPIRES_IN=24h
 
 ## Startup
 ```bash
-cd /home/juanferca/rag && docker compose up -d --build
+cd /home/user/rag && docker compose up -d --build
 ```
 
 ## Future Frontend
 - Angular app (planned)
-- Conecta a `https://api.juanferca.com/api/`
+- Conecta a `https://api.example.com/api/`
 - JWT en localStorage, enviado vía HTTP interceptor
 - Auth guard redirect a login si no hay token
